@@ -1,16 +1,34 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 
 const LoginCard = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
+    const data = {
+      email: username,
+      password: password
+    };
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         console.log(`Username: ${username}, Password: ${password}`);
     };
+    const navigate = useNavigate();
+
+    function sendData(){
+      console.log('je passe')
+      axios.post("http://localhost:3000/auth/login", data)
+    .then((response: { data: any; }) => {
+      navigate('/', { replace: true });
+    console.log(response.data);
+  })
+  .catch((error: any) => {
+    console.error(error);
+  });
+  }
 
     return (
         <Body>
@@ -29,7 +47,7 @@ const LoginCard = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <StyledButton type="submit">Login</StyledButton>
+                    <StyledButton onClick={sendData} type="submit">Login</StyledButton>
                 </StyledForm>
             </StyledCard>
         </Body>

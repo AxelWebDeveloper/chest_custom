@@ -1,18 +1,36 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import { useIonRouter } from "@ionic/react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 
 const ConfirmAccount = () => {
     const [username, setUsername] = useState("");
     const [confirmCode, setConfirmCode] = useState("");
-
+    const data = {
+        email: username,
+        confirmationCode: confirmCode
+      };
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         console.log(`Username: ${username}, confirmCode: ${confirmCode}`);
     };
 
+    const navigate = useNavigate();
+
+    function sendData(){
+        console.log('je passe')
+        axios.post("http://localhost:3000/auth/confirm", data)
+    .then((response: { data: any; }) => {
+        navigate('/login', { replace: true });
+      console.log(response.data);
+    })
+    .catch((error: any) => {
+      console.error(error);
+    });
+    }
     const router = useIonRouter();
 
 
@@ -34,11 +52,7 @@ const ConfirmAccount = () => {
                         onChange={(e) => setConfirmCode(e.target.value)}
                     />
                     <StyledButton 
-                    onClick={() => {
-                        window.alert("Compte confirmé");
-                        router.push("/");
-                        window.location.reload();
-                      }}
+                    onClick={sendData}
                       type="submit">Validate account</StyledButton>
                 </StyledForm>
             </StyledCard>
