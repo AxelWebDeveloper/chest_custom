@@ -4,13 +4,14 @@ import { useIonRouter } from "@ionic/react";
 
 
 
-const ConfirmAccount = () => {
+const ConfirmResetPassword = () => {
     const [username, setUsername] = useState("");
-    const [confirmCode, setConfirmCode] = useState("");
+    const [newPassword, setnewPassword] = useState("");
+    const [confirmationCode, setConfirmationCode] = useState("");
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        console.log(`Username: ${username}, confirmCode: ${confirmCode}`);
+        console.log(`Username: ${username}, newPassword: ${newPassword}`);
     };
 
     const router = useIonRouter();
@@ -19,7 +20,7 @@ const ConfirmAccount = () => {
     return (
         <Body>
             <StyledCard>
-                <h2>Confirmer votre compte</h2>
+                <h2>Confirmer votre changement de mot de passe</h2>
                 <StyledForm onSubmit={handleSubmit}>
                     <StyledInput
                         type="text"
@@ -30,8 +31,14 @@ const ConfirmAccount = () => {
                     <StyledInput
                         type="text"
                         placeholder="Confirmation code"
-                        value={confirmCode}
-                        onChange={(e) => setConfirmCode(e.target.value)}
+                        value={newPassword}
+                        onChange={(e) => setConfirmationCode(e.target.value)}
+                    />
+                     <StyledInput
+                        type="text"
+                        placeholder="Nouveau mot de passe"
+                        value={newPassword}
+                        onChange={(e) => setnewPassword(e.target.value)}
                     />
                     <StyledButton 
                     onClick={() => {
@@ -93,4 +100,4 @@ const StyledButton = styled.button`
   }
 `;
 
-export default ConfirmAccount;
+export default ConfirmResetPassword;

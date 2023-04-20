@@ -4,13 +4,11 @@ import { useIonRouter } from "@ionic/react";
 
 
 
-const ConfirmAccount = () => {
+const ResetPassword = () => {
     const [username, setUsername] = useState("");
-    const [confirmCode, setConfirmCode] = useState("");
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        console.log(`Username: ${username}, confirmCode: ${confirmCode}`);
     };
 
     const router = useIonRouter();
@@ -19,19 +17,13 @@ const ConfirmAccount = () => {
     return (
         <Body>
             <StyledCard>
-                <h2>Confirmer votre compte</h2>
+                <h2>Modifier votre mot de passe</h2>
                 <StyledForm onSubmit={handleSubmit}>
                     <StyledInput
                         type="text"
                         placeholder="Email"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <StyledInput
-                        type="text"
-                        placeholder="Confirmation code"
-                        value={confirmCode}
-                        onChange={(e) => setConfirmCode(e.target.value)}
                     />
                     <StyledButton 
                     onClick={() => {
@@ -93,4 +85,4 @@ const StyledButton = styled.button`
   }
 `;
 
-export default ConfirmAccount;
+export default ResetPassword;
