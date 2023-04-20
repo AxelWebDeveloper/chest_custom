@@ -1,18 +1,34 @@
 import { useIonRouter } from '@ionic/react';
 import React, {useState} from 'react';
 import styled from "styled-components";
-import { Auth } from "aws-amplify";
-
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const RegisterCard = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const data = {
+        email: username,
+        password: password
+      };
+      const navigate = useNavigate();
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         console.log(`Username: ${username}, Password: ${password}`);
     };
+
+    function sendData(){
+        console.log('je passe')
+        axios.post("http://localhost:3000/auth/register", data)
+    .then((response: { data: any; }) => {
+        navigate('/confirmAccount', { replace: true });
+      console.log(response.data);
+    })
+    .catch((error: any) => {
+      console.error(error);
+    });
+    }
     const router = useIonRouter();
 
 
@@ -34,11 +50,7 @@ const RegisterCard = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <StyledButton    
-                    onClick={() => {
-                        window.alert("Inscription confirmé");
-                        router.push("/confirmaccount");
-                        window.location.reload();
-                      }} type="submit">Register</StyledButton>
+                    onClick={sendData} type="submit">Register</StyledButton>
                 </StyledForm>
             </StyledCard>
         </Body>
