@@ -18,11 +18,11 @@ const LoginCard = () => {
 
     function sendData(){
       axios.post("http://localhost:3000/auth/login", data)
-        .then((response: { data: any; }) => {
+        .then((response: { data: { accessToken: string; } }) => {
             localStorage.setItem('token', JSON.stringify(response.data.accessToken));
             navigate('/home', { replace: true });
         })
-      .catch((error: any) => {
+      .catch((error: Error) => {
         console.error(error);
       });
   }
@@ -30,7 +30,7 @@ const LoginCard = () => {
     return (
         <Body>
             <StyledCard>
-                <h2>Login BEWBEWWWW</h2>
+                <h2>Login</h2>
                 <StyledForm onSubmit={handleSubmit}>
                     <StyledInput
                         type="text"
@@ -40,7 +40,7 @@ const LoginCard = () => {
                     />
                     <StyledInput
                         type="password"
-                        placeholder="comment ça pas mal les bzeez"
+                        placeholder="mot de passe"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />

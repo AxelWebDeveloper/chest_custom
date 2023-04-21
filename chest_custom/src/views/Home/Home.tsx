@@ -5,6 +5,7 @@ import {io} from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
+import {GameInterface} from "../../interfaces/game.interface";
 
 type CreateGameFormData = {
     name: string;
@@ -16,7 +17,7 @@ const socket = io('http://localhost:3000');
 
 const Home = () => {
     const navigate = useNavigate();
-    const [data, setData] = useState<any>([]);
+    const [data, setData] = useState<GameInterface[]>([]);
     const [formData, setFormData] = useState<CreateGameFormData>({
         name: '',
         uuid: '',
@@ -50,7 +51,7 @@ const Home = () => {
             setData([...data, game])
         });
         socket.on('gameUpdated', (game) => {
-            setData((prevData: any[]) => prevData.filter((g) => g.id !== game.id));
+            setData((prevData: GameInterface[]) => prevData.filter((g) => g.id !== game.id));
         });
     }, [socket, data]);
 
@@ -85,7 +86,9 @@ const Home = () => {
         navigate(`/game/${formData.uuid}`, { replace: true })
     };
 
-    const handleJoinGame = async (game: any) => {
+    const handleJoinGame = async (game: {
+        uuid: string;
+    }) => {
         const user = await getUser();
         const joinData = {
             game: game,
@@ -120,7 +123,7 @@ const Home = () => {
                 <h2>Liste des parties</h2>
                 <ListGame>
                     <>
-                        {data.map((game: any) => {
+                        {data.map((game: GameInterface) => {
                             return (
                                 <Game key={game.id}>
                                     <img src={logo} alt={'logo'} width={60} style={{ borderRadius: '5px' }} />

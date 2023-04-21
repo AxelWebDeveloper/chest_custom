@@ -21,11 +21,11 @@ const RegisterCard = () => {
     function sendData(){
         console.log('je passe')
         axios.post("http://localhost:3000/auth/register", data)
-    .then((response: { data: any; }) => {
+    .then((response: { data: { accessToken: string } }) => {
         navigate('/confirmAccount', { replace: true });
       console.log(response.data);
     })
-    .catch((error: any) => {
+    .catch((error: Error) => {
       console.error(error);
     });
     }
