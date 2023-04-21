@@ -2,27 +2,56 @@ import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import styled from "styled-components";
 import logo from "../../assets/logo.png"
 import {io} from "socket.io-client";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
+import axios from "axios";
 
 type CreateGameFormData = {
     name: string;
-    players: {
-        firstName: string;
-    };
+    uuid: string;
+    user: object;
 };
 
 const socket = io('http://localhost:3000');
 
 const Home = () => {
+    const navigate = useNavigate();
+    const [data, setData] = useState<any>([]);
     const [formData, setFormData] = useState<CreateGameFormData>({
         name: '',
-        players: {
-            firstName: 'Axel'
-        },
+        uuid: '',
+        user: {},
     });
-    const [data, setData] = useState<any>([]);
 
     useEffect(() => {
-        socket.on('gameCreated', (game) => setData([...data, game]));
+        const token = localStorage.getItem('token');
+
+        if (token !== null) {
+            const parsedToken = JSON.parse(token);
+
+            const fetchGames = async () => {
+                const games = await axios.get('http://localhost:3000/games', {
+                    headers: {
+                        Authorization: `Bearer ${parsedToken.jwtToken}`
+                    }
+                });
+
+                setData(games.data);
+            };
+
+            fetchGames();
+        } else {
+            console.error('No token found');
+        }
+    }, [])
+
+    useEffect(() => {
+        socket.on('gameCreated', (game) => {
+            setData([...data, game])
+        });
+        socket.on('gameUpdated', (game) => {
+            setData((prevData: any[]) => prevData.filter((g) => g.id !== game.id));
+        });
     }, [socket, data]);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -33,10 +62,38 @@ const Home = () => {
         }));
     };
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const getUser = async () => {
+        const token = localStorage.getItem('token');
+        if (token !== null) {
+            const parsedToken = JSON.parse(token);
+            const user = await axios.get('http://localhost:3000/users/me', {
+                headers: {
+                    Authorization: `Bearer ${parsedToken.jwtToken}`
+                }
+            });
+
+            return user.data;
+        }
+    }
+
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        const user = await getUser();
+        formData.uuid = uuidv4();
+        formData.user = user;
         socket.emit('createGame', formData);
+        navigate(`/game/${formData.uuid}`, { replace: true })
     };
+
+    const handleJoinGame = async (game: any) => {
+        const user = await getUser();
+        const joinData = {
+            game: game,
+            user: user,
+        }
+        socket.emit('joinGame', joinData);
+        navigate(`/game/${game.uuid}`, { replace: true });
+    }
 
     return (
         <BodyHome>
@@ -45,7 +102,6 @@ const Home = () => {
                     <Logo src={logo} />
                 </DivImage>
                 <ListButton>
-                    <Button>Créer une partie</Button>
                     <Button>Rejoindre une partie</Button>
                     <Button>Ajouter un ami</Button>
                 </ListButton>
@@ -69,7 +125,7 @@ const Home = () => {
                                 <Game key={game.id}>
                                     <img src={logo} alt={'logo'} width={60} style={{ borderRadius: '5px' }} />
                                     <p>{game.name} | 1/2</p>
-                                    <JoinButton>Rejoindre</JoinButton>
+                                    <JoinButton onClick={() => handleJoinGame(game)}>Rejoindre</JoinButton>
                                 </Game>
                             )
                         })}
@@ -104,6 +160,7 @@ const HomeContainer = styled.div`
   width: 500px;
   height: 500px;
   padding-top: 50px;
+  overflow: scroll;
   background-color: #25374b;
   box-shadow: rgba(173, 173, 175, 0.25) 0px 2px 5px -1px, rgba(241, 241, 241, 0.3) 0px 1px 3px -1px;
   
