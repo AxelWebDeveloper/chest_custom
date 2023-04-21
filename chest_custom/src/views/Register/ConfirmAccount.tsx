@@ -51,7 +51,7 @@ const ConfirmAccount = () => {
                         value={confirmCode}
                         onChange={(e) => setConfirmCode(e.target.value)}
                     />
-                    <StyledButton 
+                    <StyledButton
                     onClick={sendData}
                       type="submit">Validate account</StyledButton>
                 </StyledForm>

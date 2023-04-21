@@ -49,7 +49,10 @@ const RegisterCard = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <StyledButton    
+                    <LinkItem href={'../ResetPassword'}>
+                        <TextItem>Mot de passe oublier ?</TextItem>
+                    </LinkItem>
+                    <StyledButton
                     onClick={sendData} type="submit">Register</StyledButton>
                 </StyledForm>
             </StyledCard>
@@ -102,6 +105,16 @@ const StyledButton = styled.button`
   &:hover {
     background-color: #3e8e41;
   }
+`;
+
+const LinkItem = styled.a`
+  text-decoration: none;
+  margin-top: 2%;
+  margin-bottom: 3%;
+  text-align: center;
+`;
+const TextItem = styled.span`
+  color: #5290f5;
 `;
 
 export default RegisterCard;
