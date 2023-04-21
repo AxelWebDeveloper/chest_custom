@@ -83,7 +83,8 @@ const Home = () => {
 
 const BodyHome = styled.div`
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  flex-wrap: wrap;
   display: flex;
   flex-direction: row;
   align-items: center;
