@@ -132,6 +132,21 @@ const Home = () => {
                     </>
                 </ListGame>
             </HomeContainer>
+            <HomeContainer>
+                <h2>Liste des amis</h2>
+                <ListFriend>
+                    <>
+                    <p>Axel </p>
+                    <AddButton>Ajouter</AddButton>
+                    </>
+                </ListFriend>
+                <ListFriend>
+                    <>
+                    <p>Alexis </p>
+                    <AddButton>Ajouter</AddButton>
+                    </>
+                </ListFriend>
+            </HomeContainer>
         </BodyHome>
     );
 };
@@ -158,11 +173,13 @@ const HomeContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 500px;
-  height: 500px;
+  height: 400px;
   padding-top: 50px;
   overflow: scroll;
   background-color: #25374b;
   box-shadow: rgba(173, 173, 175, 0.25) 0px 2px 5px -1px, rgba(241, 241, 241, 0.3) 0px 1px 3px -1px;
+  margin-bottom:1%;
+  margin-top:1%;
   
   h2 {
     color: #fff;
@@ -179,7 +196,6 @@ const DivImage = styled.div`
 const Logo = styled.img`
   width: 150px;
   height: 150px;
-  margin-top: 10%;
   border-radius: 7px;
 `;
 const ListButton = styled.div`
@@ -231,6 +247,18 @@ const ListGame = styled.div`
   align-items: center;
 `;
 
+const ListFriend = styled.div`
+  align-items: baseline;
+  border-radius:5px;
+	display: flex;
+  margin: 10px;
+  padding: 10px;
+  color:white;
+  background-color:#6382AB;
+  justify-content: space-between;
+  width:250px;
+`;
+
 const Game = styled.div`
   width: 100%;
   padding: 10px;
@@ -251,6 +279,19 @@ const JoinButton = styled(Button)`
   width: 20%;
   font-size: 14px;
   margin: 0 10px 0 0;
+`;
+
+const AddButton = styled(Button)`
+width: 100%;
+border: none;
+border-radius: 5px;
+background-color: #40ab7f;
+color: #fff;
+font-size: 1rem;
+cursor: pointer;
+  &:hover {
+      background-color: #3c9d6f;
+  }
 `;
 
 export default Home;
