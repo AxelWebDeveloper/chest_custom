@@ -30,7 +30,7 @@ const Home = () => {
             const parsedToken = JSON.parse(token);
 
             const fetchGames = async () => {
-                const games = await axios.get('http://localhost:3000/games', {
+                const games = await axios.get('http://localhost:3000/games/opened', {
                     headers: {
                         Authorization: `Bearer ${parsedToken.jwtToken}`
                     }
