@@ -5,6 +5,8 @@ import Game from "../views/Game/Game";
 import Login from "../views/Login/Login";
 import RegisterCard from '../views/Register/Register';
 import ConfirmAccount from '../views/Register/ConfirmAccount';
+import ResetPassword from '../views/ResetPassword/ResetPassword';
+import ConfirmResetPassword from '../views/ResetPassword/ConfirmResetPassword';
 
 const Router = () => {
     return (
@@ -12,6 +14,9 @@ const Router = () => {
             <Routes>
                 <Route path="/" element={<Home />}/>
                 <Route path="/register" element={<RegisterCard />}/>
+                <Route path="/confirmaccount" element={<ConfirmAccount />}/>
+                <Route path="/resetpassword" element={<ResetPassword />}/>
+                <Route path="/confirmresetpassword" element={<ConfirmResetPassword />}/>
                 <Route path="/confirmaccount" element={<ConfirmAccount />}/>
                 <Route path="/game/:id" element={<Game />}/>
                 <Route path="/login" element={<Login />} />

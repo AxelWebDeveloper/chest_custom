@@ -11,7 +11,7 @@ const RegisterCard = () => {
         email: username,
         password: password
       };
-      const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();

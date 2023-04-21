@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import { useIonRouter } from "@ionic/react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 
@@ -8,11 +10,29 @@ const ConfirmResetPassword = () => {
     const [username, setUsername] = useState("");
     const [newPassword, setnewPassword] = useState("");
     const [confirmationCode, setConfirmationCode] = useState("");
+    const data = {
+      email: username,
+      password: newPassword,
+      confirmationCode: confirmationCode
+    };
+    const navigate = useNavigate();
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         console.log(`Username: ${username}, newPassword: ${newPassword}`);
     };
+
+    function sendData(){
+      console.log('je passe')
+      axios.post("http://localhost:3000/auth/confirm-password", data)
+    .then((response: { data: any; }) => {
+      navigate('/login', { replace: true });
+    console.log(response.data);
+    })
+    .catch((error: any) => {
+      console.error(error);
+    });
+    }
 
     const router = useIonRouter();
 
@@ -41,11 +61,7 @@ const ConfirmResetPassword = () => {
                         onChange={(e) => setnewPassword(e.target.value)}
                     />
                     <StyledButton 
-                    onClick={() => {
-                        window.alert("Compte confirmé");
-                        router.push("/");
-                        window.location.reload();
-                      }}
+                    onClick={sendData}
                       type="submit">Validate account</StyledButton>
                 </StyledForm>
             </StyledCard>
