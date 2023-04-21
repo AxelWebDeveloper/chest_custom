@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
-
 const LoginCard = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -19,15 +17,14 @@ const LoginCard = () => {
     const navigate = useNavigate();
 
     function sendData(){
-      console.log('je passe')
       axios.post("http://localhost:3000/auth/login", data)
-    .then((response: { data: any; }) => {
-      navigate('/', { replace: true });
-    console.log(response.data);
-  })
-  .catch((error: any) => {
-    console.error(error);
-  });
+        .then((response: { data: any; }) => {
+            localStorage.setItem('token', JSON.stringify(response.data.accessToken));
+            navigate('/', { replace: true });
+        })
+      .catch((error: any) => {
+        console.error(error);
+      });
   }
 
     return (
