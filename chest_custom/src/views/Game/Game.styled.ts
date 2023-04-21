@@ -38,3 +38,86 @@ export const Player = styled.p`
     transform: scale(1.05);
   }
 `;
+export const GameChat = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+export const ChatContainer = styled.div`
+  display: flex;
+  margin-left: 9%;
+  `;
+
+
+export const BlockChat = styled.div`
+  display: flex;
+  width: 500px;
+  height: 100vh;
+  background-color:#6382ab ;
+
+`;
+
+export const Chat = styled.div`
+  background-color:#244569 ;
+  opacity: 70%;
+  width: 450px;
+  height: 95vh;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 2%;
+  align-content: center;
+  margin-left: 6%;
+  margin-top: 4%;
+`;
+
+export const Input = styled.input`
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  height: 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  margin-right: 5%;
+  margin-bottom: 5%;
+  display: flex;
+
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px #007bff;
+  }
+`;
+
+
+export const ChatMessagesContainer = styled.div`
+  width: 100vw;
+  height: 91vh;
+  overflow-y: scroll;
+`;
+
+export const MessageContainer1 = styled.div`
+  margin: 10px;
+  padding: 10px;
+  background-color: #376ff6;
+  border-radius: 5px;
+`;
+
+export const Username1 = styled.div`
+  font-weight: bold;
+`;
+
+export const Message1 = styled.div`
+  margin-top: 5px;
+`;
+
+export const MessageContainer2 = styled.div`
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #FFFFFF;
+`;
+export const Username2 = styled.div`
+  font-weight: bold;
+`;
+export const Message2 = styled.div`
+  margin-top: 5px;
+`;

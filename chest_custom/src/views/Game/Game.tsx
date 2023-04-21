@@ -52,27 +52,52 @@ const Game = () => {
 
     return (
         <styled.Container>
-            <styled.GameContainer>
-                <styled.Players>
-                    <>
-                        {players?.map((player: any) => (
-                            <Player key={player.id}>{player.email.split('@')[0]}</Player>
-                        ))}
-                    </>
-                </styled.Players>
-                <Chessboard
-                    boardWidth={700}
-                    customDarkSquareStyle={{
-                        backgroundColor: '#244569'
-                    }}
-                    customLightSquareStyle={{
-                        backgroundColor: '#6382ab'
-                    }}
-                    customBoardStyle={{
-                        border: '8px solid #1d3a59'
-                    }}
-                />
-            </styled.GameContainer>
+            <styled.GameChat>
+                <styled.GameContainer>
+                    <styled.Players>
+                        <>
+                            {players?.map((player: any) => (
+                                <Player key={player.id}>{player.email.split('@')[0]}</Player>
+                            ))}
+                        </>
+                    </styled.Players>
+                    <Chessboard
+                        boardWidth={700}
+                        customDarkSquareStyle={{
+                            backgroundColor: '#244569'
+                        }}
+                        customLightSquareStyle={{
+                            backgroundColor: '#6382ab'
+                        }}
+                        customBoardStyle={{
+                            border: '8px solid #1d3a59'
+                        }}
+                    />
+                </styled.GameContainer>
+                    <styled.ChatContainer>
+                        <styled.BlockChat>
+                            <styled.Chat>
+                                <styled.ChatMessagesContainer>
+                                    <styled.MessageContainer1>
+                                        <styled.Username1>Utilisateur 1:</styled.Username1>
+                                        <styled.Message1>Bonjour, comment ça va ?</styled.Message1>
+                                    </styled.MessageContainer1>
+                                    <styled.MessageContainer2>
+                                        <styled.Username2>Utilisateur 2:</styled.Username2>
+                                        <styled.Message2>Ça va bien, et toi ?</styled.Message2>
+                                    </styled.MessageContainer2>
+                                </styled.ChatMessagesContainer>
+                                <styled.Input
+                                    type="text"
+                                    placeholder="Entrez votre message..."
+                                    //value={value}
+                                    //onChange={onChange}
+                                    //onKeyPress={handleKeyPress}
+                                    />
+                             </styled.Chat>
+                        </styled.BlockChat>
+                </styled.ChatContainer>
+            </styled.GameChat>
         </styled.Container>
     )
 }
