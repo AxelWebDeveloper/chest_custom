@@ -1,16 +1,31 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import { useIonRouter } from "@ionic/react";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 const ResetPassword = () => {
     const [username, setUsername] = useState("");
-
+    const data = {
+      email: username,
+    };
+    const navigate = useNavigate();
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
     };
 
+    function sendData(){
+      console.log('je passe')
+      axios.post("http://localhost:3000/auth/forgot-password", data)
+    .then((response: { data: any; }) => {
+      navigate('/confirmresetpassword', { replace: true });
+      console.log(response.data);
+    })
+    .catch((error: any) => {
+    console.error(error);
+    });
+    } 
     const router = useIonRouter();
 
 
@@ -26,11 +41,7 @@ const ResetPassword = () => {
                         onChange={(e) => setUsername(e.target.value)}
                     />
                     <StyledButton 
-                    onClick={() => {
-                        window.alert("Compte confirmé");
-                        router.push("/");
-                        window.location.reload();
-                      }}
+                    onClick={sendData}
                       type="submit">Validate account</StyledButton>
                 </StyledForm>
             </StyledCard>
