@@ -20,7 +20,7 @@ const LoginCard = () => {
       axios.post("http://localhost:3000/auth/login", data)
         .then((response: { data: any; }) => {
             localStorage.setItem('token', JSON.stringify(response.data.accessToken));
-            navigate('/', { replace: true });
+            navigate('/home', { replace: true });
         })
       .catch((error: any) => {
         console.error(error);
@@ -44,6 +44,12 @@ const LoginCard = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                    <LinkItem href={'../ResetPassword'}>
+                        <TextItem>Mot de passe oublier ?</TextItem>
+                    </LinkItem>
+                    <LinkItem href={'../register'}>
+                        <TextItem>Vous n'avez pas encore de compte</TextItem>
+                    </LinkItem>
                     <StyledButton onClick={sendData} type="submit">Login</StyledButton>
                 </StyledForm>
             </StyledCard>
@@ -96,6 +102,16 @@ const StyledButton = styled.button`
   &:hover {
     background-color: #3e8e41;
   }
+`;
+
+const LinkItem = styled.a`
+  text-decoration: none;
+  margin-top: 2%;
+  margin-bottom: 3%;
+  text-align: center;
+`;
+const TextItem = styled.span`
+  color: #5290f5;
 `;
 
 export default LoginCard;

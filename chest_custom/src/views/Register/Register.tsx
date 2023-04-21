@@ -11,7 +11,7 @@ const RegisterCard = () => {
         email: username,
         password: password
       };
-      const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
@@ -49,7 +49,8 @@ const RegisterCard = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <StyledButton    
+
+                    <StyledButton
                     onClick={sendData} type="submit">Register</StyledButton>
                 </StyledForm>
             </StyledCard>
@@ -103,5 +104,6 @@ const StyledButton = styled.button`
     background-color: #3e8e41;
   }
 `;
+
 
 export default RegisterCard;
